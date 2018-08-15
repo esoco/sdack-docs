@@ -1,20 +1,20 @@
 # Introduction
 
-The **Simple Development Application Component Kit** \(aka SDACK\) project is basically a stack of frameworks. Each of the stack levels defines an abstraction of a certain problem domain like presentation \(= user interface\) or persistence. The purpose of these abstractions is to hide the complexity of the underlying technologies \(which are not imposed by the framework\) and therefore provide simple to use components for the building of applications. Together they provide a foundation that allows to create process-oriented, interactive applications that can easily be connected to existing or new business data.
+The **SDACK** project consists of a stack of multiple framework projects. Each of the stack levels defines an abstraction of a particular domain like process flow, user interface, or persistence. The purpose of these abstractions is to hide the complexity of the underlying technologies. This provides a foundation for the fast and easy creation of applications that are connected to existing or new business data.
 
-To create a SDACK application you define processes and entities. Processes encapsulate the business logic and entities the persistent state of the application. The foundation of SDACK is the **ObjectRelations** framework. It allows the generic modeling of relations between objects, like object orientation defines the modeling of objects.
-
-The following illustration displays the current framework stack:
+The following illustration displays the full framework stack:
 
 ![SDACK](.gitbook/assets/esoco-framework-stack.png)
 
-SDACK provides all components that are necessary to write applications for different purposes. This covers areas like persistence, networking, logging, user interface, and more. For web applications it has a single dependency to the open source [GWT project](http://gwtproject.org), but that is not accessed directly. Instead it is used through a simplified abstraction \(GEWT\). Such abstractions are one of the main properties of SDACK and makes projects widely independent from external APIs. Other external dependencies depend on the application environment, e.g. JDBC database drivers. The full framework stack is compact, in code size as well as considering the number of API methods to learn.
+A typical SDACK application is defined by designing processes, entities, and user interfaces. Processes encapsulate the business logic and entities define the persistent state of the application. The foundation of SDACK is the **ObjectRelations** framework. It allows the generic modeling of relations between objects, similar to the way object orientation defines the modeling of objects. This abstraction of object interdependencies makes many of the framework features possible.
 
-The main goal of SDACK is to make application development as easy as possible while still providing the full functionality of all underlying APIs. The major building block for this is the [ObjectRelations](introduction.md) framework. It introduces a new programming paradigm that is the foundation of all upper levels of the stack. A major design principle of all frameworks is to hide as much non-essential code from the developer as possible. It provides simple to use APIs that need no configuration for default behavior. They also use modern software design patterns like Generics, Functional Programming, and Fluent Interfaces.
+SDACK provides all components that are necessary to write applications for different purposes without the need for almost no additional dependencies. This covers areas like persistence, networking, logging, user interface, and more. User interfaces are defined with the GEWT framework which provides an abstraction of component-based user interface toolkits. For web applications it uses the open source [GWT library](https://www.gwtproject.org) for the actual UI rendering, but this can be replaced or extended with other UI libraries if necessary. Apart from this external dependencies are only needed for an application's runtime environment, e.g. JDBC database drivers.
+
+The main goal of SDACK is to make application development as easy as possible while still providing the full functionality of all underlying APIs. A major design principle of all frameworks is to hide as much non-essential code from the developer as possible. It provides simple to use APIs that need no configuration for default behavior. They also use modern software design patterns like Generics, Functional Programming, and Fluent Interfaces. And the full framework stack is quite compact, in code size as well as considering the number of API methods to learn.
 
 The following sections provide an overview of the single framework layers. They also link to detailed documentation for the respective layer.
 
-## [esoco-common](https://github.com/esoco/sdack/tree/5ae03b773cd2e020e88216a68625fc7d8edbc8d0/esoco-common.md)
+## esoco-common
 
 This library contains a small set of essential functionality like core interfaces and fundamental data structures. It is the foundation of the ObjectRelations framework and uses only a small set of standard Java APIs. That allows to use it in constrained Java environments like GWT where only a subset of these APIs is available.
 

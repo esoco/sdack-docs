@@ -11,5 +11,5 @@
 
 ## Tools
 
-* [ModificationSyncService](tools-1/modificationsyncservice.md)
+* [ModificationSyncService](tools/modificationsyncservice.md)
 

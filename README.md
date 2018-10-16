@@ -14,7 +14,7 @@ An introduction to the development of applications with SDACK.
 
 A presentation that summarizes the properties and application of SDACK.
 
-## [Tools](tools.md)
+## [Tools]()
 
 Documentation of the tools that are part of SDACK.
 

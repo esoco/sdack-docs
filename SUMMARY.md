@@ -4,6 +4,12 @@
 * [Introduction](introduction.md)
 * [Application Structure](application_structure.md)
 * [User Interfaces](user_interfaces.md)
-* [Tools](tools.md)
-* [ModificationSyncService](tools-modificationsyncservice.md)
+
+## Frameworks
+
+* [ObjectRelations](frameworks/objectrelations.md)
+
+## Tools
+
+* [ModificationSyncService](tools-1/modificationsyncservice.md)
 

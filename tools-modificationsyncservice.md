@@ -2,8 +2,8 @@
 
 ## [⤴ SDACK Tools](tools.md)
 
-* [ModificationSyncServiceEndpoint](modificationsyncservice.md#modificationsyncendpoint)
-* [ModificationSyncServiceTool](modificationsyncservice.md#modificationsyncservicetool)
+* [ModificationSyncServiceEndpoint](tools-modificationsyncservice.md#modificationsyncendpoint)
+* [ModificationSyncServiceTool](tools-modificationsyncservice.md#modificationsyncservicetool)
 
 ## ModificationSyncService
 
@@ -17,7 +17,7 @@ The data held by the sync service is a mapping from resources to lock holders. I
 
 If no lock is already held by another client the mapping is entered and the lock is granted. Otherwise the HTTP error status code 423 \(= _Locked_\) is returned. If the client no longer needs access to the resource it must release the lock for the respective target ID. Releasing locks is crucial for the correct functioning of the service and must therefore be implemented thoroughly to prevent the lock service from holding stale locks.
 
-To avoid the need to operate multiple sync services for different deployment stages of the applications the sync service expects an additional context parameter besides the target and client IDs. It defines the context for which a lock is managed \(e.g. develop, test, and production\), allowing to deploy a single service to handle all sync requests in an organization. But if desired it is still possible to deploy multiple sync services and just use a default context. If all contexts are handled in a single instance it must be ensured that especially the applications in development or under test don't compromise the sync service \(e.g. by flooding it with invalid locks\). In the case of erratic application behavior the [ModificationSyncServiceTool](modificationsyncservice.md#modificationsyncservicetool) can be used to remove stale locks.
+To avoid the need to operate multiple sync services for different deployment stages of the applications the sync service expects an additional context parameter besides the target and client IDs. It defines the context for which a lock is managed \(e.g. develop, test, and production\), allowing to deploy a single service to handle all sync requests in an organization. But if desired it is still possible to deploy multiple sync services and just use a default context. If all contexts are handled in a single instance it must be ensured that especially the applications in development or under test don't compromise the sync service \(e.g. by flooding it with invalid locks\). In the case of erratic application behavior the [ModificationSyncServiceTool](tools-modificationsyncservice.md#modificationsyncservicetool) can be used to remove stale locks.
 
 ### Service API
 
@@ -40,7 +40,7 @@ The main sync service API under `/api/sync` provides the following endpoints:
 * `/api/sync/release_lock`: release a lock held by the current client
 * `/api/sync/current_locks`: list the locks currently held by the service \(mirrored as `/api/status/current_locks`\)
 
-In addition, the API is mirrored under the base URL `/webapi` which provides a simple HTML view of the service API. This provides a way to quickly check the service status from a web browser. Service modifications are not possible through the web service. For that purpose the [ModificationSyncServiceTool](modificationsyncservice.md#modificationsyncservicetool) \(or the regular JSON API\) should be used.
+In addition, the API is mirrored under the base URL `/webapi` which provides a simple HTML view of the service API. This provides a way to quickly check the service status from a web browser. Service modifications are not possible through the web service. For that purpose the [ModificationSyncServiceTool](tools-modificationsyncservice.md#modificationsyncservicetool) \(or the regular JSON API\) should be used.
 
 ## ModificationSyncEndpoint
 

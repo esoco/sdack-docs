@@ -5,5 +5,5 @@
 * [Application Structure](application_structure.md)
 * [User Interfaces](user_interfaces.md)
 * [Tools](tools.md)
-* [ModificationSyncService](modificationsyncservice.md)
+* [ModificationSyncService](tools-modificationsyncservice.md)
 

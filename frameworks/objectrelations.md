@@ -8,25 +8,31 @@ description: >-
 
 ### Introduction
 
-Years ago, after working on several Java projects I noticed some repetitive tasks that could not be solved directly with the object-oriented methodology. Some typical parts of code needed to be replicated in each project. After further contemplation I recognized that although object-orientation allowed to model the single components of a problem domain \(the objects\), it did not provide a generic way to model the relations of these components with each other. And creating relations between objects is a major part of the software development process and therefore the area that caused the repeating work mentioned above.
+Several years ago, after working on multiple Java projects I noticed that a considerable amount of the work for each project consisted of re-creating very similar code. After further contemplation I realized that although object-orientation allowed to model the single components of a problem domain \(the objects\), it did not provide a generic way to model the relations of these components with each other. But building the relations between objects is a major and maybe even the most important part of the software development process.
 
-The ObjectRelations concept addresses this issue by providing a generic mechanism for the modelling of the relations between objects. It is built on the foundation of object-orientation and consists of only a few elements. That makes it easy to understand and it's application simple, even in existing projects.
+The ObjectRelations concept and framework that is described here addresses this issue. It does so by providing a generic mechanism for the modelling of the relations between objects. It is built on the foundation of object-orientation and consists of only a few new elements. That makes it easy to understand and it's application simple, even in existing projects.
 
-Due to the generality of the idea the obvious way to implement this concept would be as an extension of an object-oriented programming language. This would consist of additional specifications, keywords, and tools like \(pre-\)compiler, IDE support, etc. But the problem with such an approach is that it would require fundamental changes to the development process to use relations. And similar projects \(e.g. aspect-oriented programming\) in the past have shown that it is difficult if not impossible to convince developers to switch to such new technologies if the tools lack maturity - which will almost certainly be the case with every new technology.
+Due to the generality of the idea the obvious way to implement this concept would be as an extension of an object-oriented programming language. Such a solution would need additional specifications, keywords, and tools like compilers, IDE support, etc. But the problem with such an approach is that it would require fundamental changes to the development process. And similar projects in the past have shown that it is difficult if not impossible to convince developers to switch to such new technologies if the tools lack maturity. And that which will almost certainly be the case with every new technology.
 
-For that reason the ObjectRelations framework is implemented as a standard Java library that can be easily applied to any project, new or existing. Using relations therefore doesn't require any special tools or changes to the development process. The restrictions imposed by implementing the concept as a library compared to a language feature are actually quite minor and can be circumvented without much effort.
+For that reason the ObjectRelations framework is implemented as a standard Java library that can be easily applied to any project, new or existing. Using relations therefore doesn't require any special tools or changes to the development process, only a slightly different approach to solve the problems at hand. The restrictions imposed by implementing the concept as a library compared to a language feature are actually quite minor and can be circumvented without too much effort.
 
-Although the current implementation is for the Java programming language the concept can be applied to any object-oriented language. Some more modern languages may even support an easier integration than Java. For example, in Kotlin it would be possible to use extension functions to allow any object to have relations. And because Java code can be used directly from Kotlin code the existing Java library can be used directly.
+Although the current implementation is for the Java programming language, the concept can be applied to any object-oriented language. Some more recent languages may even support an easier integration than Java. For example, in Kotlin it would be possible to use extension functions to provide native relation support for any object \(which is not possible in Java\). And because Java code can be used directly from Kotlin code \(and in the most JVM languages\) the ObjectRelations Java library can be used directly in a Kotlin project. 
 
-### ObjectRelations
+### The Framework
 
-As mentioned above, the idea behind this framework is the modeling of relations between object. But what exactly are relations? Essentially, a relation is a reference from one object to another. But that's not all: a relation is also defined by the behavior that is associated with it, and that is provided by the program code that evaluates and manipulates the reference. A good example is the common event listener mechanism. An object supporting event listeners not only needs references to the listener objects but also the code to manage listeners, collect event data, and to notify the listeners of new events.
+As described above, the idea behind the framework is to model the relations between objects. So, what exactly are relations? Essentially, a relation is a reference from one object to another. This is the same as any other object reference in Java. But with the ObjectRelations concept, this reference is a distinctive object of it's own, not just an object pointer managed by the runtime environment. And the reference is now called a _relation_. 
 
-To model relations in a generic way it is therefore necessary to create an abstraction that combines object references and the associated program code. Someone familiar with object-orientation will notice the similarities with the classes of object-oriented code. Classes achieve abstraction by bundling the data of a certain domain with the code that operates on the data. And that is basically what the ObjectRelations framework does for relations.
+Like the objects in object-orientation relations need to be created from a template. In the case of objects the template is a class. In the case of relations, the template is called a _relation type_. A relation type defines the properties and behavior that a certain relation of that type has. Relation types are defined during development and are applied during the execution of an application to create or modify relations.
 
-The ObjectRelations framework is based on three fundamental elements: relation types, related objects, and relations, each represented by corresponding classes. The following sections explain these elements in detail.
+{% hint style="info" %}
+**This is the key point of the concept:** relations between objects are modeled as objects themselves, with their own state and behavior. This allows to abstract typical properties of inter-object relations into relation types which can be re-applied in different areas and projects without the repetition of code.
+{% endhint %}
 
-#### Relation Types
+An interesting and very useful "side-effect" of relations being objects is that relation objects and relation types can also have relations. This allows to easily apply meta-information to any relation-enabled \(= relatable\) object. And because these meta-data is based on relations it can easily be re-used for different purposes and projects.
+
+To implement this concept the ObjectRelations framework defines three core elements: relation types, objects that contain relations \(to other objects\), and the relations to other objects. The following sections explain these elements in detail. All classes of the framework are placed in children of the `org.obrel` package. The [source code is available on GitHub](https://github.com/esoco/objectrelations) and the library can be accessed as a dependency from _Gradle_ or _Maven_.
+
+### Relation Types
 
 Relation types are to relation-oriented software development what classes are to object-orientation. They represent the abstraction of a relation between objects as described above. The abstract base class of all relation types is org.obrel.core.RelationType. To create a new kind of relation between objects a developer only needs to subclass RelationType and implement or override the necessary methods to control the behavior of relations with the new type.
 
@@ -40,7 +46,7 @@ To implement a new relation type the minimum a subclass of RelationType must do 
 
 While the separation of target and resolved types facilitates the implementation of sophisticated relation types, many relation types will be used in a local context where the target and resolved values will be the same \(i.e., T and R will be identical\). To support this the framework contains the base class PropertyType\. It's resolve\(\) method has been implemented to simply return the target value. The name expresses that relations of such a type are very similar to the properties of objects in object-oriented applications because such properties are nothing else than references to other objects.
 
-#### Related Objects
+### Related Objects
 
 As a relation is a reference to a certain object there must also be an object from which the relation originates. The class org.obrel.core.RelatedObject serves as this starting point for relations. Code that wants to use relations should subclass it in as many classes as possible. RelatedObject manages the relations associated with an instance and provides methods to access and modify them. It is to the ObjectRelations framework what the class Object is to the standard class library of Java.
 
@@ -50,7 +56,7 @@ The returned object will be an instance of the org.obrel.core.Relatable interfac
 
 As a rule of thumb it can be said that each class in a relation-oriented project should be a subclass of RelatedObject, like each class in a Java project is a subclass of Object. The overhead compared to normal objects is very low so it should probably never harm to subclass it.
 
-#### Relations
+### Relations
 
 Relations are basically the instances of relation types, in the same way as objects are the instances of classes in object-oriented code. When a relation is set on a related object a new instance of the class org.obrel.core.Relation \(or a subclass\) will be created. The main difference to objects is that relations are created automatically and that they are typically accessed and managed through the methods of the RelatedObject class \(which are defined in the Relatable interface\). In most cases application code doesn't need to access relation instances directly.
 
@@ -129,14 +135,4 @@ ACTION_LISTENERS.notifyListeners(this, rEvent);
 Where this stands for the object that wants to notify it's listeners and rEvent is the action event that occurred. If another relation type wants to notify the listeners of a relation's parent object it would use that parent object as the first argument instead.
 
 This concludes the introduction to the main elements of the ObjectRelations framework. The abstraction and reusability it provides can reduce the complexity and size of typical object-oriented code considerably. And because the framework itself is very lightweight it can be added to almost any project, even in constrained environments.
-
-### ObjectSpaces
-
-The previous section has demonstrated that the ObjectRelations framework can simplify typical development tasks in single applications. But the dynamic and generic nature of relations make them also well suited to create relations that reference objects outside of a local context. Such a remote context could be another application that runs concurrently, a system service, or a server on a network. There is only one problem: how can remote objects be identified, especially if the state of an application is to be made persistent between accesses to the objects? One option would be to create different relation types for separate kinds of connections to external contexts, but then it would be necessary to duplicate code for similar relations just for different communication methods.
-
-To provide a solution to this problem the ObjectRelations framework introduces the additional concept of object spaces. The purpose of an object space is to associate objects with an unique identifier and to provide a way to look up an object by it's identifier. This functionality is defined in the interface org.obrel.space.ObjectSpace which only contains a few methods for exactly this purpose. All further functionality of object spaces, especially how objects are managed, stored, or exported, is left completely to implementations of this interface. But object spaces are not only intended for remote access. They can also be used to create a meaningful abstraction of the objects that an application needs in its local context.
-
-One important element of the object spaces concept is that they can be hierarchical, i.e. an object space can contain other object spaces recursively, each having an identifier. The hierarchy of object spaces in combination with the identifier of an object contained in this hierarchy can be expressed as a path or URL that identifies that particular object. Some object space implementations will then export their contents including the sub-spaces in different ways to allow global access to the contained objects. Such exporting can be based on different mechanisms, e.g. HTTP, RMI, or XML-RPC. If the object URLs are then combined with unique top-level identifiers like domain names or IP addresses, objects will be globally reachable through relations.
-
-That said it has to be mentioned that the object spaces concept is the youngest part of the framework. It is still an ongoing research project, especially in the area of the implementation of remote access protocols.
 

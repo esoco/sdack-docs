@@ -2,7 +2,7 @@
 
 In SDACK user interfaces are created from interactive process steps. If a process encounters such a step during execution it will stop, display data to the application user, and wait for input. If the user provides the input the process continues to run, either until the next interaction or to it's end. On a process stop the framework queries all process parameters that have been declared as interactive by the causing step. Then it generates the corresponding user interface components and displays them to the user. Any input will be collected into the corresponding parameters and the process step will be notified when the process continues to run. Based on the input it can then decide whether to continue the execution or to request additional feedback from the user.
 
-## InteractionFragment
+## `InteractionFragment`
 
 The base for all process interactions is the class `InteractionFragment`. It is not a subclass of `ProcessStep` but they share a common base class \(`ProcessFragment`\). Although it is possible to have interactive process steps it is desirable to have re-usable user interface structures. Interaction fragments provide exactly that, allowing to combine multiple fragments in an interactive step. The root of an interaction always is a process step but that is handled transparently by the framework.
 
@@ -29,7 +29,7 @@ Fragment layouts can be divided into several categories: simple, segmented, excl
 ### Segmented Layouts
 
 * `DOCK`: Up to three parameters \(or sub-fragments\) can be arranged as left, right, and center elements. The left and/or right parameters must have an explicit size set so that the center element will fill the remaining space. To arrange the parameters vertically instead of horizontally the flag `VERTICAL` can be set on the fragment parameter.
-* `SPLIT`: Similar to `DOCK` but the pre-set sizes of the border areas can be modified interactively by the user afterwards.
+* `SPLIT`: Similar to `DOCK` but the preset sizes of the border areas can be modified interactively by the user afterwards.
 
 ### Exclusive Layouts
 
@@ -39,7 +39,7 @@ Fragment layouts can be divided into several categories: simple, segmented, excl
 
 ### Structured Layouts
 
-* `GRID`: Places parameter in distinct rows depending on the property flag `SAME_ROW`. If set on a parameter it will be placed in the same row as the previous parameters. For each parameter without this flag a new row will be created in the UI. In HTML the rows and their elements will become correspoding style names so that a CSS grid system can be applied to the fragment. \(HTML: hierachy of `div` elements\)
+* `GRID`: Places parameter in distinct rows depending on the property flag `SAME_ROW`. If set on a parameter it will be placed in the same row as the previous parameters. For each parameter without this flag a new row will be created in the UI. In HTML the rows and their elements will become corresponding style names so that a CSS grid system can be applied to the fragment. \(HTML: hierarchy of `div` elements\)
 * `FORM`: An input form. Works like `GRID` but uses a different UI element. \(HTML: `form` with `div` children\)
 * `GROUP`: Groups the parameter visually and can have a title by adding a text parameter with the `LABEL_STYLE` set to `TITLE`. Typically used to group elements in a form. \(HTML: `fieldset` with `div` children\)
 * `TABLE`: Arranges parameters in a table structure. In the case of HTML this will be a `table` element. Because this is the oldest layout mode it is also the default if no explicit mode is set on a fragment. But because the layout of nested tables often leads to problems and rendering tables responsively is difficult it is recommended to use one of the other layouts whenever possible. Table layouts should only be used if a \(HTML\) table is explicitly needed and only if no further nesting of fragments is necessary.

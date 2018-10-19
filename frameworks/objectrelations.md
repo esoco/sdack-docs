@@ -38,7 +38,7 @@ The framework has only one dependency, to the project esoco-common. That project
 
 ### Relation Types
 
-As mentioned above, relation types are the template from which new relations are created at application runtime. Technically, relation types are instances of the class `RelationType`. It can either be used directly or it may be sub-classed. Inheriting from `RelationType` allows to create extended relation functionality, although the base class is sufficient for many applications.
+As mentioned above, relation types are the template from which new relations are created at application runtime. Technically, relation types are instances of the class `RelationType`. That class can either be used directly or it may be sub-classed. Inheriting from `RelationType` allows to create extended relation functionality, although the base class is sufficient for many applications.
 
 The class is declared as a generic type: `RelationType<T>`. The type parameter T stands for the datatype of the target objects to which relations of that type refer to. It ensures type safety when relations are accessed. The type of the source objects, i.e. the objects that relate to the targets, is not constrained  because relations of a certain type can be set on any source object.
 
@@ -133,7 +133,7 @@ Besides setting and querying relations relatable objects provide additional meth
 
 As the previous paragraphs showed, functional programming is used in several parts of the framework. As the framework development started before Java 8 which introduced functional elements in the standard libraries it contains it's own Function classes. With the advent of Java 8 they have been made fully compatible so that they are interoperable with the Java classes. But they still are more extensive as the example of `InvertibleFunction` shows.
 
-Speaking of functions: the `RelationType` class also implements the `Function` interface. The expected input value is a `Relatable` object and the result will be a value of their target type T. This allows to use relation types directly in function chains when processing relatable objects, without the need to wrap the calls into lambda expressions.
+Speaking of functions: the `RelationType` class also implements the `Function` interface. The expected input value is a `Relatable` object and the result will be a value of their target type T. This allows to use relation types directly in function chains when processing relatable objects, without the need to wrap the calls into lambda expressions. And a predicate that can be used to test relatable objects can be created with `RelationType.is(Predicate<T>)`.
 
 Because the function classes are not specific to the ObjectRelations concept they reside in the `de.esoco.lib` package mentioned earlier.
 {% endhint %}
@@ -187,9 +187,9 @@ So, all these factors make relations very helpful even for simple object attribu
 
 Some readers may think that all these positive features may come with a disadvantage  in performance and memory usage because of the more complex structure of relations compared with simple object fields. While this is true to some degree it is in most cases not a noticeable factor. Relations are internally stored in a map and looking up a relation obviously takes a bit longer than accessing a field. But compared to the other processing that is done by an application this is not a real factor. For example, the mentioned entity framework has been used for mass data processing and the handling of the relations had no measurable effect on the program execution.
 
-On the other hand relations can even reduce processing time and memory usage if applied wisely. Because relations only exists if they have been created they can reduce these factors in dynamic implementations where only a few objects have certain properties. When using objects with field declarations all fields will consume memory, even if they are not used. And if such objects need to be searched for properties with reflection all fields need to be iterated through while an empty relation map can be detected immediately.
+On the other hand relations can even reduce processing time and memory usage if applied wisely. Because relations only exists if they have been created they can reduce these factors in dynamic implementations where only a few objects have certain properties. This is of even more importance if more complex properties like collections or maps are used. When using objects with field declarations all fields will consume memory, even if they are not used. And if such objects need to be searched for properties with reflection all fields need to be iterated through while an empty relation map can be detected immediately.
 
-And as always the rule stated by Donald Knuth should be applied: _Premature optimization is the root of all evil_.
+And as always the classic rule stated by Donald Knuth should be applied: _Premature optimization is the root of all evil_.
 {% endhint %}
 
 #### Dependency Injection
@@ -198,5 +198,15 @@ Another very useful application of ObjectRelations is dependency injection. Many
 
 #### Advanced Usage
 
+While relations are already very useful in their basic form they can also be used in their intermediate or transformed variants or with derived relation types that provide additional functionality. For example, the entity persistence framework uses intermediate relations to store references to other entities with the primary of the referenced object. Only if such a reference is accessed will a database query be performed for the full entity data.
 
+A demonstration of an "active" relation type with a specific implementation can be found in the `MetaTypes` class. It contains a flag meta-relation type called `IMMUTABLE` that is backed by a special sub-type of `RelationType`. After that type is set on an arbitrary relatable object the object's relation cannot be modified anymore \(removing the flag isn't possible as well\). The immutability includes all references to collections and maps which will be wrapped into their unmodifiable counterparts. It also includes all references to other relatables recursively. This shows that a single relation implementation can be used for a multitude of applications without any additional code.
+
+Instead of statically defined relation types it is also possible to create new relation types at runtime. This can be used to create dynamic systems that store values in relations that are only known when the application executes. The business process framework uses such dynamic relation types when it generates individual user interfaces for the users of a web application.
+
+#### Limitations
+
+The main limitation of the current implementation is that it isn't a real language extension but only a library. Therefore it is not possible for existing Java objects to \(directly\) have relations, only subclasses of the relatable base classes can have them. Furthermore the declaration of relation types is more verbose than is desirable because it needs to adhere to the Java specification. The resulting usage of uppercase relation type names based on the Java naming conventions may also seem uncommon. And these static types requires a static initializer with an initialization call which probably causes the most common usage error of the library when it is not present.
+
+The concept itself is quite limitless, although its full possibilities still need to be explored. But that versatility comes with it's own side effects. Applying relations to a project requires careful planning to still have a well-structured result. Because relations can be so ubiquitous it is easy to apply them without a defined structure. And as relations can be set on any relatable object it needs to be avoided to set them on the wrong object\(s\), for example when using them for dependency injection. But good design is necessary in almost any development environment, especially if it is so dynamic and generic.
 

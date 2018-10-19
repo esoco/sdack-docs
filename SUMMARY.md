@@ -8,9 +8,9 @@
 * [Application Structure](sdack/application_structure.md)
 * [User Interfaces](sdack/user_interfaces.md)
 
-## Core Frameworks
+## Frameworks
 
-* [ObjectRelations](core-frameworks/objectrelations.md)
+* [ObjectRelations](frameworks/objectrelations.md)
 
 ## Tools
 

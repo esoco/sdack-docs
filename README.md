@@ -4,17 +4,19 @@ This project contains the documentation for all projects that are part of the [S
 
 ### License
 
-Like SDACK and it's included frameworks this documentation project is also licensed under the [Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0) \(see the link or the LICENSE file for details\).
+Like SDACK and the frameworks it consists of this documentation project is also licensed under the [Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0) \(see the link or the LICENSE file for details\).
 
-## [Introduction to SDACK](sdack/introduction.md)
+## SDACK
 
-An introduction to the development of applications with SDACK.
+This category contains introductory and summarizing information about SDACK and how to develop applications with it.
 
-## Presentation: [Developing with SDACK](https://docs.google.com/presentation/d/1-BfGyMiXnBi_1WsE0YUxv-KmmjlkFRUf81YZjimEOlo)
+* [Introduction to SDACK](sdack/introduction.md) - Provides an introduction to the elements of the framework stack
+* [Application structure](sdack/application_structure.md) - Describes the structure of a SDACK web application
+* [User Interfaces](sdack/user_interfaces.md) - Information about how web application user interfaces are built 
 
-A presentation that summarizes the properties and application of SDACK.
+### Presentation: [Developing with SDACK](https://docs.google.com/presentation/d/1-BfGyMiXnBi_1WsE0YUxv-KmmjlkFRUf81YZjimEOlo)
 
-## [Tools]()
+A presentation that provides an introduction into the development with SDACK.
 
-Documentation of the tools that are part of SDACK.
+
 

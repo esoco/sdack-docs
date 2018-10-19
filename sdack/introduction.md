@@ -4,7 +4,7 @@ The **SDACK** project consists of a stack of multiple framework projects. Each o
 
 The following illustration displays the full framework stack:
 
-![SDACK](.gitbook/assets/esoco-framework-stack.png)
+![SDACK](../.gitbook/assets/esoco-framework-stack.png)
 
 A typical SDACK application is defined by designing processes, entities, and user interfaces. Processes encapsulate the business logic and entities define the persistent state of the application. The foundation of SDACK is the **ObjectRelations** framework. It allows the generic modeling of relations between objects, similar to the way object orientation defines the modeling of objects. This abstraction of object interdependencies makes many of the framework features possible.
 

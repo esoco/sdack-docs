@@ -1,12 +1,12 @@
 # Read Me
 
-This project contains the documentation for the [SDACK project](https://github.com/esoco/sdack) and all it's sub-projects.
+This project contains the documentation for all projects that are part of the [SDACK framework stack](https://github.com/esoco/sdack). Please see the sections below for links to the respective documentations.
 
-## License
+### License
 
-This project is licensed under the [Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0) \(see link or LICENSE file for details\).
+Like SDACK and it's included frameworks this documentation project is also licensed under the [Apache 2.0 license](http://www.apache.org/licenses/LICENSE-2.0) \(see the link or the LICENSE file for details\).
 
-## [Introduction to SDACK](introduction.md)
+## [Introduction to SDACK](sdack/introduction.md)
 
 An introduction to the development of applications with SDACK.
 

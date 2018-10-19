@@ -1,13 +1,16 @@
 # Table of contents
 
 * [Read Me](README.md)
-* [Introduction](introduction.md)
-* [Application Structure](application_structure.md)
-* [User Interfaces](user_interfaces.md)
 
-## Frameworks
+## SDACK
 
-* [ObjectRelations](frameworks/objectrelations.md)
+* [Introduction](sdack/introduction.md)
+* [Application Structure](sdack/application_structure.md)
+* [User Interfaces](sdack/user_interfaces.md)
+
+## Core Frameworks
+
+* [ObjectRelations](core-frameworks/objectrelations.md)
 
 ## Tools
 

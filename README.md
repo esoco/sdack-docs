@@ -1,6 +1,6 @@
 # Read Me
 
-This project contains the documentation for all projects that are part of the [SDACK framework stack](https://github.com/esoco/sdack). Please see the sections below for links to the respective documentations.
+This project contains the documentation for all projects that are part of the [SDACK framework stack](https://github.com/esoco/sdack) and several related **esoco** projects like [coroutines](coroutines/introduction.md). Please see the sections below for links to the respective documentations.
 
 ### License
 

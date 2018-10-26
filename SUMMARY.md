@@ -15,8 +15,8 @@
 
 ## Coroutines
 
-* [Introduction to Coroutines](optional-frameworks/introduction.md)
-* [Coroutine Details](optional-frameworks/coroutines.md)
+* [Introduction to Coroutines](coroutines/introduction.md)
+* [Coroutine Details](coroutines/coroutines.md)
 
 ## Tools
 

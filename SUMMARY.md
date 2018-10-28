@@ -15,7 +15,7 @@
 
 ## Coroutines
 
-* [Introduction to Coroutines](coroutines/introduction.md)
+* [Coroutines in pure Java](coroutines/introduction.md)
 
 ## Tools
 

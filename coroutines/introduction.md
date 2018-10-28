@@ -1,4 +1,4 @@
-# Introduction to Coroutines
+# Coroutines in pure Java
 
 After some experimenting with goroutines and the coroutine library of Kotlin I was looking for something similar in Java. But all solutions I could find are not pure Java by using non-Java libraries via JNI or rely on special tools, like bytecode manipulation by special Java Agents that need to run in parallel with an application.
 

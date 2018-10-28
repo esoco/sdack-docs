@@ -16,7 +16,6 @@
 ## Coroutines
 
 * [Introduction to Coroutines](coroutines/introduction.md)
-* [Coroutine Details](coroutines/coroutines.md)
 
 ## Tools
 
